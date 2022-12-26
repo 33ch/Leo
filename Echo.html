@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>元旦快乐</title>
+
+    <style type="text/css">
+        html {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+            background-size: 100% 33.33%;
+            font-family: '华文行楷';
+
+        }
+        #surprise {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30px;
+
+        }
+
+        .word {
+            color: #fff;
+            line-height: 4vh;
+            position: fixed;
+            top: 5vh;
+            left: 5vw;
+            font-size: 14px;
+            display: none;
+           /*  position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            justify-content: center;
+            align-items: center;
+            text-align: center; */
+        }
+
+        .word .name {
+            color: #fff;
+            text-shadow: 4px 4px 2px red;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        @media screen and (min-width: 768px) {
+            body {
+                background-size: 90%;
+                background-repeat: no-repeat;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <input type="button" value="🧨元旦惊喜" id="surprise">
+    <audio src="1.mp3" loop></audio>
+    <div class="word">
+        <span>
+            我喜欢的<span class="name">优优</span> <br>
+            ꫛꫀꪝ❥ 🐰𝟚𝟘𝟚𝟛🐰 <br>
+            🧨 新的一年 新的開始 𝑾𝒊𝒕𝒉 𝒚𝒐𝒖💕 <br>
+            ‘’祝你的未来 发财 被爱💗 好运常在‘‘ <br>
+            ‘’你的生活会越来越好✨✨✨‘‘ <br>
+        </span>
+        
+    </div>
+    <script>
+        let data = new URLSearchParams(location.search).get("data");
+        try {
+            data = JSON.parse(decodeURIComponent(data)) || {};
+        } catch (err) {
+            console.log("err", err);
+            data = {};
+        }
+        //data=data
+
+        const username = document.querySelector(".name");
+        username.innerText = data.text || "优优";
+        username.style.color = "#" + (data.textColor || "#ffffff");
+        username.style.textShadow = "4px 4px 5px #" + (data.color || "ff0000");
+
+
+        let suprisebtn = document.getElementById('surprise')
+        let audio = document.querySelector('audio')
+        audio.src = data.bgm || 'https://production-4gnv3qeqb070546b-1312154413.tcloudbaseapp.com/newyear/1.mp3'
+        suprisebtn.onclick = function () {
+            audio.play()
+            document.body.style.background = "#000 url('https://production-4gnv3qeqb070546b-1312154413.tcloudbaseapp.com/newyear/1.gif')  center center"
+            document.querySelector('.word').style.display = 'flex'
+            suprisebtn.style.display = 'none'
+            
+        }
+    </script>
+</body>
+
+</html>
