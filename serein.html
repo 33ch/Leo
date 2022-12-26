@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圣诞快乐</title>
+
+    <style type="text/css">
+        html {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background: #000 url('https://production-4gnv3qeqb070546b-1312154413.tcloudbaseapp.com/christmas3/1.gif') no-repeat center center;
+            background-size: cover;
+        }
+
+        .word {
+            color: #fff;
+            line-height: 4vh;
+            position: fixed;
+            top: 6vh;
+            left: 5vw;
+            font-size: 12px;
+        }
+
+        .word .name {
+            color: #fff;
+            text-shadow: 3px 3px 4px red;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        @media screen and (min-width: 768px) {
+            body {
+                background-size: 70%;
+            }
+        }
+
+        @media screen and (min-width: 992px) {
+            body {
+                background-size: 60%;
+
+            }
+
+            .word {
+                font-size: 16px;
+            }
+
+            .word .name {
+                font-size: 22px;
+            }
+        }
+
+        @media screen and (min-width: 1200px) {
+            body {
+                background-size: 50%;
+            }
+
+            .word {
+                font-size: 18px;
+            }
+
+            .word .name {
+                font-size: 24px;
+            }
+        }
+
+        @media screen and (min-width: 1500px) {
+            body {
+                background-size: 40%;
+            }
+
+            .word {
+                font-size: 18px;
+            }
+
+            .word .name {
+                font-size: 24px;
+            }
+        }
+
+        .play {
+            position: absolute;
+            right: 3vw;
+            top: 3vw;
+            z-index: 100;
+            display: none;
+        }
+
+        .play svg {
+            width: 30px;
+            height: 30px;
+            fill: #fff;
+        }
+
+        .playing {
+            animation: rotating 1s infinite;
+        }
+
+        @keyframes rotating {
+            from {
+                transform: rotate(0);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="word">
+        圣诞老爷爷🎅<br>昨天偷偷告诉我 <br>你就是我的礼物🎊<br>我的<span class="name">优优</span> <br> 🔔 🍎 🎊 ℳᴇʀʀᎽ🎅 ྀིℂʜʀɪsᴛᴍᴀs🎄🍬<br>
+    </div>
+    <div class="play">
+        <svg t="1671018884603" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="1429" width="30" height="30">
+            <path
+                d="M768.496 359.12L648.224 572a128 128 0 1 1-1.648-92.288l90.784-160.656A295.2 295.2 0 0 0 520 224C356.512 224 224 356.512 224 520S356.512 816 520 816C683.472 816 816 683.472 816 520c0-59.328-17.44-114.56-47.504-160.88zM600.272 562.352l-0.272-0.144 1.648-2.912a80 80 0 1 0-1.376 3.072zM864 520C864 709.984 709.984 864 520 864S176 709.984 176 520 330.016 176 520 176 864 330.016 864 520z"
+                p-id="1430"></path>
+        </svg>
+    </div>
+    <script>
+        let data = new URLSearchParams(location.search).get("data");
+        try {
+            data = JSON.parse(decodeURIComponent(data)) || {};
+        } catch (err) {
+            console.log("err", err);
+            data = {};
+        }
+        //data=data
+
+        const titleDOM = document.querySelector(".name");
+        titleDOM.innerText = data.text || "梦梦";
+        titleDOM.style.color = "#" + (data.textColor || "#ffffff");
+        titleDOM.style.textShadow = "4px 4px 5px #" + (data.color || "ff0000");
+
+        // 背景音乐
+        const play = document.querySelector('.play');
+        const playBtn = play.querySelector('.play svg');
+        let player
+        if (data.bgm) {
+            play.style.display = 'block';
+            player = new Audio()
+            player.src = decodeURIComponent(data.bgm);
+            player.loop = true;
+
+            player.onplay = function () {
+                playBtn.classList.add('playing')
+            }
+            player.onpause = function () {
+                playBtn.classList.remove('playing')
+            }
+        }
+        play.onclick = function () {
+            if (!player) return;
+            if (player.paused) {
+                player.play();
+            } else {
+                player.pause();
+            }
+        }
+
+    </script>
+</body>
+
+</html>
